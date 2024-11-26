@@ -6,3 +6,6 @@ seaborn
 joblib
 streamlit
 scipy
+kagglehub
+lightgbm
+mlflow

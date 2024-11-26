@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.17.0rc0
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow_data/mlflow.db  # or use postgresql/mysql for prod
+    volumes:
+      - ./mlartifacts:/mlartifacts
+      - ./mlflow_data:/mlflow_data
+    command: mlflow server --backend-store-uri sqlite:///mlflow_data/mlflow.db --host 0.0.0.0
