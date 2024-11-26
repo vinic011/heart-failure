@@ -2,7 +2,7 @@ import joblib
 import mlflow
 import pandas as pd
 import streamlit as st
-
+import json
 from constants import MLFLOW_URI
 from utils import download_production_model
 
@@ -41,7 +41,9 @@ download_production_model()
 model = joblib.load("pipeline_model.joblib")
 
 if st.button("Exemplo"):
-    example = pd.read_csv("example.csv")
+    with open("example.json") as f:
+        example_json = json.load(f)
+    example = pd.DataFrame.from_dict(example_json, orient="index").T
     st.dataframe(example)
     prediction = model.predict(example)[0]
     if prediction == 1:
